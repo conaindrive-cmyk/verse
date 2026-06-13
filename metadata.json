@@ -1,0 +1,6 @@
+{
+  "name": "News Verse",
+  "description": "Truth Beyond Headlines. A modern, professional, and fully responsive news platform inspired by the clean, typographic style of BBC News. Features breaking news alerts, comprehensive category widgets, local news reporting, high-contrast entertainment showcases, video news modules, and a fully featured newsroom administration dashboard for real-time article publishing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

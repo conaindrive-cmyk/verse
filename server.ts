@@ -37,15 +37,18 @@ if (apiKey) {
 
 // REST API Endpoints
 app.get("/images/capture.png", (req, res) => {
-  res.sendFile(path.join(process.cwd(), "Capture.PNG"));
+  const folder = process.env.NODE_ENV === "production" ? "dist" : "public";
+  res.sendFile(path.join(process.cwd(), folder, "images", "capture.png"));
 });
 
 app.get("/images/gallery-1.jpeg", (req, res) => {
-  res.sendFile(path.join(process.cwd(), "WhatsApp Image 2026-06-07 at 6.33.14 PM (1).jpeg"));
+  const folder = process.env.NODE_ENV === "production" ? "dist" : "public";
+  res.sendFile(path.join(process.cwd(), folder, "images", "gallery-1.jpeg"));
 });
 
 app.get("/images/gallery-2.jpeg", (req, res) => {
-  res.sendFile(path.join(process.cwd(), "WhatsApp Image 2026-06-07 at 7.07.50 PM (1).jpeg"));
+  const folder = process.env.NODE_ENV === "production" ? "dist" : "public";
+  res.sendFile(path.join(process.cwd(), folder, "images", "gallery-2.jpeg"));
 });
 
 app.get("/api/news", (req, res) => {

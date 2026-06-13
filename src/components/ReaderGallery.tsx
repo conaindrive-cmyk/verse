@@ -4,6 +4,7 @@
  */
 
 import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { Camera, Eye, Heart, MapPin, Upload, X, ShieldAlert, Check, Calendar, ArrowRight } from "lucide-react";
 
 interface GalleryPhoto {
@@ -519,22 +520,22 @@ export default function ReaderGallery({ isDark }: ReaderGalleryProps) {
       </div>
 
       {/* LIGHTBOX OVERLAY ELEMENT */}
-      {selectedPhoto && (
+      {selectedPhoto && createPortal(
         <div
           onClick={() => setSelectedPhoto(null)}
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md select-none animate-fade-in"
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-fade-in"
           id="gallery-lightbox-modal"
         >
           <div
             onClick={(e) => e.stopPropagation()}
             className={`relative max-w-4xl w-full rounded-xl overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh] ${
-              isDark ? "bg-[#1E1E20] text-white" : "bg-white text-black"
+              isDark ? "bg-[#1E1E20] text-white animate-fade-in" : "bg-white text-black animate-fade-in"
             }`}
           >
             {/* Close handler floating icon */}
             <button
               onClick={() => setSelectedPhoto(null)}
-              className="absolute top-4 right-4 z-10 p-2 rounded-full bg-black/60 hover:bg-black/80 text-white transition-colors"
+              className="absolute top-4 right-4 z-50 p-2 rounded-full bg-black/60 hover:bg-black/80 text-white transition-colors cursor-pointer"
               aria-label="Close Lightbox"
             >
               <X size={20} />
@@ -584,10 +585,10 @@ export default function ReaderGallery({ isDark }: ReaderGalleryProps) {
                 </div>
               </div>
 
-              <div className="pt-6 border-t border-black/5 dark:border-white/5 flex gap-4 mt-6 select-none">
+              <div className="pt-6 border-t border-black/5 dark:border-white/5 flex gap-4 mt-6">
                 <button
                   onClick={() => handleLike(selectedPhoto.id)}
-                  className={`flex-1 flex items-center justify-center gap-2 py-3 rounded text-xs font-bold uppercase transition-all ${
+                  className={`flex-1 flex items-center justify-center gap-2 py-3 rounded text-xs font-bold uppercase transition-all cursor-pointer ${
                     likedPhotos.includes(selectedPhoto.id)
                       ? "bg-red-500/15 text-red-500 border border-red-500"
                       : "bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 hover:bg-slate-200 border border-transparent"
@@ -599,7 +600,7 @@ export default function ReaderGallery({ isDark }: ReaderGalleryProps) {
 
                 <button
                   onClick={() => setSelectedPhoto(null)}
-                  className="px-5 py-3 border border-slate-300 dark:border-slate-700 text-xs font-bold rounded hover:bg-black/5 transition-colors uppercase tracking-wider"
+                  className="px-5 py-3 border border-slate-300 dark:border-slate-700 text-xs font-bold rounded hover:bg-black/5 transition-colors uppercase tracking-wider cursor-pointer"
                 >
                   Close
                 </button>
@@ -607,7 +608,8 @@ export default function ReaderGallery({ isDark }: ReaderGalleryProps) {
             </div>
 
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
     </div>

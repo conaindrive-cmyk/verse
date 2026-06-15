@@ -61,16 +61,6 @@ export default function ReaderGallery({ isDark }: ReaderGalleryProps) {
       location: "Media District, Lahore",
       likes: 98,
       createdAt: new Date(Date.now() - 3600000 * 3.2).toISOString() // 3.2 hours ago
-    },
-    {
-      id: "photo-user-3",
-      title: "Constitution Avenue: Urban Refresh Infrastructure",
-      description: "Real-time look at local microclimate lattices and urban cooling sprinklers designed to mitigate peak summer temperatures in Islamabad.",
-      imageUrl: "/images/gallery-2.jpeg",
-      author: "Kamran Khan",
-      location: "G-6 Corridor, Islamabad",
-      likes: 156,
-      createdAt: new Date(Date.now() - 3600000 * 5.8).toISOString() // 5.8 hours ago
     }
   ];
 

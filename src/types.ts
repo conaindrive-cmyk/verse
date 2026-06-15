@@ -6,7 +6,6 @@
 export enum NewsCategory {
   HOME = "Home",
   LATEST = "Latest News",
-  ENTERTAINMENT = "Entertainment",
   PAKISTAN = "Pakistan",
   WORLD = "World",
   BUSINESS = "Business",

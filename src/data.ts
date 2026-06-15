@@ -7,8 +7,38 @@ import { NewsArticle, NewsCategory, VideoReport } from "./types";
 
 export const INITIAL_ARTICLES: NewsArticle[] = [
   {
+    id: "breaking-us-iran",
+    category: NewsCategory.WORLD,
+    title: "Iran war: Pakistan announces US-Iran peace deal reached",
+    summary: "In a spectacular diplomatic achievement, Pakistan has successfully announced a comprehensive peace framework between the United States and Iran, halting regional tensions.",
+    content: `ISLAMABAD, Pakistan — In a historic turn of events that has stunned global capitals, Pakistan's Ministry of Foreign Affairs has announced the successful brokering of a comprehensive peace and de-escalation framework between the United States and the Islamic Republic of Iran.
+
+The agreement, officially designated as the **"Islamabad Dialogue Accord,"** was finalized after weeks of intense, unpublicized diplomatic negotiations held under strict security in the Pakistani capital. The milestone brings an immediate halt to rising shadow warfare, cyber offensives, and maritime standoffs in the Strait of Hormuz that many feared would spill into a catastrophic global conflict.
+
+### Core Pillars of the De-escalation Framework
+According to the joint diplomatic release issued simultaneously in Washington, Tehran, and Islamabad, the peace arrangement centers on several crucial and immediate operational decisions:
+1. **Naval De-escalation:** Both nations have agreed to immediate restrictions on offensive warship maneuvers and armed drone surveillance across the Persian Gulf, securing vital international energy corridors.
+2. **Economic Sanctions Relief:** The United States has outline a phased schedule for the relaxation of specific trade restrictions in exchange for certified, verifiable pauses in advanced uranium enrichment monitored by the IAEA.
+3. **Establishment of Secure Hotlines:** Direct encrypted military lines will link top security personnel in Washington and Tehran, routed directly through Pakistan’s foreign ministry coordination offices to prevent accidental skirmishes.
+
+### Pakistan's Elevation as a Global Peacemaker
+Decades of maintaining strategic relations with both the Western superpower and its immediate western neighbor in Iran have enabled Pakistan to act as the ultimate neutral facilitator. Senior diplomatic experts remark that this is the nation's most profound foreign policy achievement in modern history.
+
+World leaders, including the Secretary-General of the United Nations, have expressed deep relief and praise. "This is an outstanding triumph of quiet, persistent diplomacy over armed posturing," commented an ambassador in Geneva.
+
+News Verse will continue to stream live dispatches as official press conferences begin in Washington D.C. and Tehran later this afternoon.`,
+    imageUrl: "/src/assets/images/pak_us_iran_peace_1781546826718.jpg",
+    publishedAt: "2026-06-15T09:45:00Z",
+    readTime: "6 min read",
+    isBreaking: true,
+    isFeatured: true,
+    isTrending: true,
+    viewCount: 41208,
+    author: "Tariq Mahmood, Chief Diplomatic Correspondent"
+  },
+  {
     id: "breaking-1",
-    category: NewsCategory.ENTERTAINMENT,
+    category: NewsCategory.TECHNOLOGY,
     title: "The Cinematic Evolution: News Verse Exclusive Interview with Acclaimed Director",
     summary: "As global cinemas embrace virtual production stages, we sit down with the visionary filmmaker shaping the future of high-concept storytelling.",
     content: `In an exclusive sit-down with News Verse in London, the acclaimed director shared insight into how next-generation virtual sets—using LED walls similar to those pioneered in sci-fi classics—are revolutionizing the creative freedom of independent cinema.
@@ -20,22 +50,22 @@ Virtual stage technologies have fundamentally shifted how cinematography works. 
 
 This changes everything for actors too, who previously spoke to green screens and tennis balls. Now, they see the lush forests or neon streetscapes in real time. It induces a level of authenticity that translates directly to the silver screen.
 
-### Entertainment's Rapid Global Shakeup
+### Technology's Rapid Global Shakeup
 In the interview, we also delved into the shifting metrics of global cinema distribution. The rise of hybrid multi-tier releases has expanded international access for filmmakers from underdeveloped regions like South Asia. Lollywood has particularly felt this wave, with recent critical successes premiering to packed festival audiences in Cannes and Toronto.
 
 As News Verse continues to follow the golden era of visual cinema, this merger of interactive engineering and raw narrative heart stands out as a lighthouse of what's to come.`,
-    imageUrl: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&q=80&w=1200",
+    imageUrl: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=1200",
     publishedAt: "2026-06-13T06:00:00Z",
     readTime: "5 min read",
     isBreaking: true,
-    isFeatured: true,
+    isFeatured: false,
     isTrending: true,
     viewCount: 14205,
     author: "Alizeh Shah, Senior Arts Critic"
   },
   {
     id: "entertainment-2",
-    category: NewsCategory.ENTERTAINMENT,
+    category: NewsCategory.PAKISTAN,
     title: "Retro Revival: Behind the Beats of Pakistan's Indie Synthwave Wave",
     summary: "Young Pakistani musicians are fusing traditional subcontinent instruments with 80s synth basslines, sparking an international cultural phenomenon.",
     content: `Lahore, Pakistan — A quiet revolution is spinning on the turntables of Lahore's underground music culture. In small, independent recording studios across Gulberg, artists are synthesizing vintage analog synthesizers with traditional instruments like the harmonium and sitar.
@@ -46,7 +76,7 @@ The output is a glowing, fast-tempo retro fusion called 'Sufi-Wave' or 'Indie-Sy
 Local bands are noticing that over 60% of their streaming audience resides in European and North American metropolitan areas. "Music is mathematical and emotional, both at the same time," says a 22-year-old multi-instrumentalist whose latest single hit the viral global charts. "When you take a traditional high-pitch melodic hook and drive it with a custom Roland drum machine, the kinetic energy transcends language barriers."
 
 In this feature, News Verse examines how independent streaming channels have given voice to bedroom producers who are now filling arenas overseas. This modern renaissance represents an authentic, visual, and highly premium artistic export that represents the best of Lollywood's evolving indie scene.`,
-    imageUrl: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=800",
+    imageUrl: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=800",
     publishedAt: "2026-06-13T05:30:00Z",
     readTime: "4 min read",
     isTrending: true,
@@ -55,7 +85,7 @@ In this feature, News Verse examines how independent streaming channels have giv
   },
   {
     id: "entertainment-3",
-    category: NewsCategory.ENTERTAINMENT,
+    category: NewsCategory.WORLD,
     title: "Global Red Carpet Highlight: Exploring the Future of Green Fashion Design",
     summary: "How sustainable bio-textiles and localized artisanal crafts dominated the visual displays at the latest international film exhibitions.",
     content: `The spotlight at this year's seasonal film galas wasn't just on the cinema, but on the fabric worn of the red carpets. Designers presented collections crafted strictly from plant-derived leather alternatives, ocean-recovered polymers, and vintage upcycled heirlooms.
@@ -63,7 +93,7 @@ In this feature, News Verse examines how independent streaming channels have giv
 "Fashion is the second largest industrial polluter," explained a renowned designer to News Verse. "We must pivot. Creative luxury shouldn't come at the cost of the environment." The visual detail of these garments was magnificent, showcasing structured silhouettes that rivaled historic high-fashion archives.
 
 This extensive editorial details the breakthroughs in bio-textile engineering making luxury fashion sustainable.`,
-    imageUrl: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=800",
+    imageUrl: "https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&q=80&w=800",
     publishedAt: "2026-06-12T18:15:00Z",
     readTime: "3 min read",
     viewCount: 5214,
@@ -71,17 +101,17 @@ This extensive editorial details the breakthroughs in bio-textile engineering ma
   },
   {
     id: "entertainment-4",
-    category: NewsCategory.ENTERTAINMENT,
+    category: NewsCategory.PAKISTAN,
     title: "Lollywood Rising: Box Office Records Shattered in Cultural Renaissance",
     summary: "A new wave of collaborative screenwriting and high-fidelity production values drives an unprecedented domestic box office surge.",
     content: `Domestic films in Karachi and Islamabad are drawing immense lines stretching around downtown multiplexes. New feature movies, ranging from gritty social realism to high-octane romantic epics, are breaking historic records set a decade ago.
 
 Industry experts point to premium color grading, tight pacing, and native narrative hooks that resonate deeply with youth audiences. News Verse tracks the financial and cultural effects of this box office boom, proving that localized stories can command premium cinema pricing.`,
-    imageUrl: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&q=80&w=800",
+    imageUrl: "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&q=80&w=800",
     publishedAt: "2026-06-12T14:45:00Z",
     readTime: "4 min read",
     viewCount: 11090,
-    author: "Faisal Bilal, Entertainment Desk"
+    author: "Faisal Bilal, Culture Desk"
   },
   {
     id: "pakistan-1",
@@ -93,7 +123,7 @@ Industry experts point to premium color grading, tight pacing, and native narrat
 By implementing smart water spray lattices fueled by treated recycled greywater, the corridors will provide safe, ventilated pedestrian avenues.
 
 This marks a crucial step in Pakistan's proactive environmental planning. News Verse outlines the scientific roadmap behind this microclimate architecture.`,
-    imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=800", // Soft nature beachy feel but let's use gorgeous city/nature placeholder
+    imageUrl: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&q=80&w=800", // High contrast beautiful real shot of Islamabad hills & trees
     publishedAt: "2026-06-13T04:15:00Z",
     readTime: "6 min read",
     isTrending: true,
@@ -108,7 +138,7 @@ This marks a crucial step in Pakistan's proactive environmental planning. News V
     content: `Karachi is rapidly cementing its reputation as South Asia's digital harbor. Statistics released by the Ministry of Information Technology show software engineering exports surged by 38% year-on-year, driven largely by cloud-native infrastructure engineering, mobile fintech solutions, and enterprise SaaS systems developed locally.
 
 Hundreds of startups operating in shared tech co-working spaces near Clifton and DHA are sealing agreements with Silicon Valley talent partners, establishing Pakistan's tech footprint on the global stage.`,
-    imageUrl: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=800",
+    imageUrl: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&q=80&w=800", // Modern reflecting business harbor/complex skyscrapers
     publishedAt: "2026-06-12T09:00:00Z",
     readTime: "4 min read",
     viewCount: 7821,
@@ -136,7 +166,7 @@ As orbital paths become increasingly crowded with commercial communications grid
     content: `A quiet revolution in physics has just been validated. Laboratories in Tokyo and Berlin have confirmed that a synthesized copper-doped crystal displays zero electrical resistance at ambient air pressures and standard room temperatures.
 
 This discovery is anticipated to eliminate power transmission losses, shrink computer chips, and revolutionize MRI and maglev engineering. News Verse provides a comprehensive breakdown of the mineral compound and commercial manufacturing timelines.`,
-    imageUrl: "https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&q=80&w=800",
+    imageUrl: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800", // High contrast professional semiconductor cleanroom laboratory
     publishedAt: "2026-06-12T16:00:00Z",
     readTime: "5 min read",
     isTrending: true,
@@ -165,7 +195,7 @@ News Verse analyzes the economic shifts and industrial real-estate booms happeni
     content: `From training nets in Rawalpindi to international venues in Melbourne, cricket coaching has entered the telemetry age. Elite fast bowlers now wear specialized biometric harnesses containing high-G accelerators that measure skeletal twists and release-velocities in real-time.
 
 Physiotherapists claim these micro-sensors are preventing joint injuries by flagging fatigue spikes before they manifest as critical tears. News Verse explores this athletic tech horizon.`,
-    imageUrl: "https://images.unsplash.com/photo-1531415080294-4404b53e511a?auto=format&fit=crop&q=80&w=800",
+    imageUrl: "/src/assets/images/cricket_biometrics_sensor_match_1781548024893.jpg",
     publishedAt: "2026-06-11T19:30:00Z",
     readTime: "4 min read",
     viewCount: 4210,
@@ -174,6 +204,7 @@ Physiotherapists claim these micro-sensors are preventing joint injuries by flag
 ];
 
 export const BREAKING_TICKER_STORIES = [
+  "DIPLOMACY: Pakistan formally announces comprehensive US-Iran peace framework following historic Islamabad Dialogue.",
   "BREAKING: Academic institutions in Islamabad announce joint AI & quantum computing research grant.",
   "CORONATION: Renowned director wins Lifetime Achievement at the European Cinema Gala in Cannes.",
   "TECH: Global scientific consensus verifies ambient-temperature superconductor mineral compound.",
@@ -187,8 +218,8 @@ export const INITIAL_VIDEOS: VideoReport[] = [
     title: "Future of Film: Building Massive Real-Time Virtual LED Production Stages",
     youtubeId: "Y3WvYvX3gX4", // Dynamic cinematic virtual production stage
     duration: "4:15",
-    category: "Entertainment",
-    thumbnailUrl: "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&q=80&w=600",
+    category: "Technology",
+    thumbnailUrl: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&q=80&w=600",
     views: "128K views",
     publishedAt: "Yesterday"
   },
@@ -198,7 +229,7 @@ export const INITIAL_VIDEOS: VideoReport[] = [
     youtubeId: "p9_itk04-1U", // Urban heat island explanation/solutions
     duration: "3:40",
     category: "Pakistan",
-    thumbnailUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&q=80&w=600",
+    thumbnailUrl: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&q=80&w=600",
     views: "45K views",
     publishedAt: "2 days ago"
   },
@@ -208,7 +239,7 @@ export const INITIAL_VIDEOS: VideoReport[] = [
     youtubeId: "scYMyfX-yIs", // AI journalism discussion
     duration: "5:12",
     category: "Technology",
-    thumbnailUrl: "https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&q=80&w=600",
+    thumbnailUrl: "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&q=80&w=600",
     views: "92K views",
     publishedAt: "3 days ago"
   }

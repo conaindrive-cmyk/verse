@@ -9,8 +9,8 @@ import { INITIAL_ARTICLES, BREAKING_TICKER_STORIES } from "./data";
 import Logo from "./components/Logo";
 import BreakingTicker from "./components/BreakingTicker";
 import ArticleModal from "./components/ArticleModal";
-import AdminDashboard from "./components/AdminDashboard";
 import ReaderGallery from "./components/ReaderGallery";
+import IntroVideoPlayer from "./components/IntroVideoPlayer";
 
 import { 
   Sun, 
@@ -31,8 +31,8 @@ import {
   Clock, 
   Heart, 
   Award,
-  PenTool,
-  Share2
+  Share2,
+  Play
 } from "lucide-react";
 
 export default function App() {
@@ -50,8 +50,16 @@ export default function App() {
   const [isStickyHeader, setIsStickyHeader] = useState<boolean>(false);
 
   // Focus Modes
-  const [isCmsOpen, setIsCmsOpen] = useState<boolean>(false);
   const [selectedArticle, setSelectedArticle] = useState<NewsArticle | null>(null);
+  const [showIntroForArticle, setShowIntroForArticle] = useState<NewsArticle | null>(null);
+
+  const handleSelectArticle = (article: NewsArticle) => {
+    if (article.id === "breaking-us-iran") {
+      setShowIntroForArticle(article);
+    } else {
+      setSelectedArticle(article);
+    }
+  };
 
   // Newsletter State
   const [newsletterEmail, setNewsletterEmail] = useState<string>("");
@@ -228,7 +236,6 @@ export default function App() {
 
   const categoriesMap = [
     { name: "Latest News", count: articles.filter((a) => a.category === NewsCategory.LATEST).length },
-    { name: "Entertainment", count: articles.filter((a) => a.category === NewsCategory.ENTERTAINMENT).length },
     { name: "Pakistan", count: articles.filter((a) => a.category === NewsCategory.PAKISTAN).length },
     { name: "World", count: articles.filter((a) => a.category === NewsCategory.WORLD).length },
     { name: "Technology", count: articles.filter((a) => a.category === NewsCategory.TECHNOLOGY).length },
@@ -240,7 +247,6 @@ export default function App() {
   const menuItems = [
     "Home",
     "Latest News",
-    "Entertainment",
     "Pakistan",
     "World",
     "Business",
@@ -256,47 +262,6 @@ export default function App() {
       }`}
       id="root-newsverse-layout"
     >
-      {/* Editorial CMS Info Banner when API is missing (Shows nice guidance in background) */}
-      {!hasApiKeyOnServer && (
-        <div className="bg-[#B80000] text-white text-[10.5px] font-black tracking-wider uppercase text-center py-2 px-4 shadow-sm select-none z-50">
-          Newsroom Tip: Assign your <code className="bg-black/25 px-1 py-0.5 rounded font-mono">GEMINI_API_KEY</code> in the Secrets menu to unlock premium deep GenAI journalism synthesis!
-        </div>
-      )}
-
-      {/* Top Main Advertising or Info bar */}
-      <div className={`hidden sm:flex items-center justify-between px-6 py-2.5 border-b text-[11px] font-bold tracking-wide uppercase select-none ${
-        isDark ? "bg-[#161618] border-slate-800 text-slate-400" : "bg-slate-50 border-slate-200 text-slate-500"
-      }`}>
-        <div className="flex items-center gap-4">
-          <span className="flex items-center gap-1">
-            <Clock size={12} className="text-[#B80000]" />
-            Sat, June 13, 2026 &bull; {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} UTC
-          </span>
-          <span className="text-emerald-500 font-mono">● LIVE BROADCST EDITION</span>
-        </div>
-        <div className="flex items-center gap-4 text-xs">
-          <button 
-            onClick={() => {
-              setActiveCategory("Latest News");
-              setIsCmsOpen(false);
-            }} 
-            className="hover:text-[#B80000] transition-colors"
-          >
-            Trending Reportings
-          </button>
-          <span>&bull;</span>
-          <button 
-            onClick={() => {
-              setActiveCategory("Entertainment");
-              setIsCmsOpen(false);
-            }} 
-            className="hover:text-[#B80000] text-[#B80000] transition-colors flex items-center gap-1 font-extrabold"
-          >
-            <Award size={11} /> Lollywood 75% Focus Edition
-          </button>
-        </div>
-      </div>
-
       {/* STICKY HEADER SECTION */}
       <header 
         id="main-navigation-header"
@@ -314,7 +279,6 @@ export default function App() {
           <div 
             onClick={() => {
               setActiveCategory("Home");
-              setIsCmsOpen(false);
               setSearchQuery("");
             }} 
             className="cursor-pointer"
@@ -325,13 +289,12 @@ export default function App() {
           {/* Desktop central navigation menu */}
           <nav className="hidden xl:flex items-center gap-1.5 text-xs font-serif font-bold tracking-tight select-none">
             {menuItems.map((item) => {
-              const isActive = activeCategory === item && !isCmsOpen;
+              const isActive = activeCategory === item;
               return (
                 <button
                   key={item}
                   onClick={() => {
                     setActiveCategory(item);
-                    setIsCmsOpen(false);
                     setSearchQuery("");
                   }}
                   className={`px-3 py-2 rounded-sm uppercase tracking-wider transition-all cursor-pointer ${
@@ -381,19 +344,7 @@ export default function App() {
               {isDark ? <Sun size={18} /> : <Moon size={18} />}
             </button>
 
-            {/* Dynamic CMS Button */}
-            <button
-              onClick={() => setIsCmsOpen(!isCmsOpen)}
-              id="cms-dashboard-trigger"
-              className={`flex items-center gap-1.5 px-3 py-2 text-xs font-black uppercase tracking-wider rounded transition-all cursor-pointer ${
-                isCmsOpen 
-                  ? "bg-[#B80000] text-white" 
-                  : isDark ? "bg-[#28282A] text-slate-300 hover:bg-slate-800" : "bg-slate-100 text-[#111111] hover:bg-slate-200"
-              }`}
-            >
-              <PenTool size={14} />
-              <span className="hidden sm:inline">NEWSROOM</span>
-            </button>
+
 
             {/* Mobile Hamburger menu */}
             <button
@@ -427,13 +378,12 @@ export default function App() {
 
             <div className="grid grid-cols-2 gap-2 text-xs font-serif font-bold">
               {menuItems.map((item) => {
-                const isActive = activeCategory === item && !isCmsOpen;
+                const isActive = activeCategory === item;
                 return (
                   <button
                     key={item}
                     onClick={() => {
                       setActiveCategory(item);
-                      setIsCmsOpen(false);
                       setIsMobileMenuOpen(false);
                       setSearchQuery("");
                     }}
@@ -465,17 +415,7 @@ export default function App() {
       {/* MAIN CONTAINER STREAM */}
       <main className="max-w-7xl mx-auto px-4 md:px-6 py-6 space-y-10">
         
-        {/* VIEW CONDITIONAL 1: Active Newsroom Editorial Dashboard Panel */}
-        {isCmsOpen ? (
-          <div className="animate-fade-in">
-            <AdminDashboard 
-              articles={articles}
-              onAddArticle={handleAddArticle}
-              onDeleteArticle={handleDeleteArticle}
-              isDark={isDark}
-            />
-          </div>
-        ) : activeCategory === "Contact" ? (
+        {activeCategory === "Contact" ? (
           /* VIEW CONDITIONAL 2: Gorgeous Serious Contact Portal */
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start animate-fade-in" id="contact-portal-view">
             <div className="lg:col-span-2 space-y-6">
@@ -571,6 +511,20 @@ export default function App() {
                       <span className="opacity-75">Broadcasting House, Portland Place, London, England</span>
                     </div>
                   </li>
+                  <li className="flex gap-2.5 bg-red-950/5 dark:bg-red-950/20 p-2.5 rounded-lg border border-red-900/10">
+                    <Youtube size={16} className="text-[#B80000] shrink-0 mt-0.5" />
+                    <div className="min-w-0">
+                      <strong className="block text-[#111111] dark:text-white">Official YouTube Channel</strong>
+                      <a 
+                        href="http://www.youtube.com/@NewsVerseNetworkNetwork" 
+                        target="_blank" 
+                        rel="noreferrer" 
+                        className="text-[#B80000] hover:underline font-mono text-[10px] break-all block mt-0.5"
+                      >
+                        youtube.com/@NewsVerseNetworkNetwork
+                      </a>
+                    </div>
+                  </li>
                   <li className="flex gap-2.5">
                     <Phone size={16} className="text-[#B80000] shrink-0" />
                     <div>
@@ -582,7 +536,7 @@ export default function App() {
                     <Mail size={16} className="text-[#B80000] shrink-0" />
                     <div>
                       <strong className="block text-[#111111] dark:text-white">Press Relations</strong>
-                      <span className="opacity-75">desk@newsverse.com</span>
+                      <span className="opacity-75">news.verse.network@gmail.com</span>
                     </div>
                   </li>
                 </ul>
@@ -604,7 +558,8 @@ export default function App() {
               <section id="hero-breaking-spotlight" className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
                 {/* Massive 2-column Banner */}
                 <div 
-                  className={`lg:col-span-2 group rounded-xl border overflow-hidden flex flex-col justify-between transition-all select-none hover:shadow-lg ${
+                  onClick={() => handleSelectArticle(heroArticle)}
+                  className={`lg:col-span-2 group cursor-pointer rounded-xl border overflow-hidden flex flex-col justify-between transition-all select-none hover:shadow-lg ${
                     isDark ? "bg-[#18181A] border-slate-800" : "bg-white border-slate-200"
                   }`}
                 >
@@ -615,16 +570,19 @@ export default function App() {
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                       referrerPolicy="no-referrer"
                     />
-                    {heroArticle.isBreaking && (
-                      <span className="absolute top-4 left-4 bg-[#B80000] text-white text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-[1px] shadow-sm">
-                        Breaking Exclusive
-                      </span>
-                    )}
                   </div>
 
                   <div className="p-6 flex-grow flex flex-col justify-between space-y-4 text-left">
                     <div className="space-y-2">
                       <div className="flex items-center gap-2">
+                        {heroArticle.isBreaking && (
+                          <>
+                            <span className="bg-[#B80000] text-white font-black uppercase text-[9px] tracking-wider px-2 py-0.5 rounded-[1px] shadow-xs">
+                              Breaking Exclusive
+                            </span>
+                            <span className="text-xs opacity-50">&bull;</span>
+                          </>
+                        )}
                         <span className="text-[#B80000] font-black uppercase text-xs tracking-widest" id="hero-category-label">
                           {heroArticle.category}
                         </span>
@@ -635,7 +593,7 @@ export default function App() {
                       </div>
 
                       <h2 
-                        onClick={() => setSelectedArticle(heroArticle)}
+                        onClick={() => handleSelectArticle(heroArticle)}
                         className="text-xl md:text-3xl font-serif font-black tracking-tight cursor-pointer hover:text-[#B80000] transition-colors line-clamp-2 leading-snug"
                         id="hero-headline-link"
                       >
@@ -649,11 +607,11 @@ export default function App() {
 
                     <div>
                       <button 
-                        onClick={() => setSelectedArticle(heroArticle)}
-                        className="inline-flex items-center gap-1 text-xs font-serif font-bold tracking-wider uppercase bg-[#B80000] hover:bg-red-800 text-white px-5 py-2.5 rounded shadow-xs cursor-pointer transition-colors"
+                        onClick={() => handleSelectArticle(heroArticle)}
+                        className="inline-flex items-center gap-1.5 text-xs font-serif font-bold tracking-wider uppercase bg-[#B80000] hover:bg-red-800 text-white px-5 py-2.5 rounded shadow-xs cursor-pointer transition-colors"
                       >
-                        Read Full Story
-                        <ChevronRight size={14} className="mt-0.5" />
+                        <Play size={12} className="fill-white" />
+                        Play Video & Read Story
                       </button>
                     </div>
                   </div>
@@ -679,7 +637,7 @@ export default function App() {
                           {topStory.category}
                         </span>
                         <h4 
-                          onClick={() => setSelectedArticle(topStory)}
+                          onClick={() => handleSelectArticle(topStory)}
                           className="text-xs md:text-sm font-sans font-extrabold leading-snug cursor-pointer group-hover:text-[#B80000] transition-colors line-clamp-2"
                         >
                           {topStory.title}
@@ -698,75 +656,6 @@ export default function App() {
                       "Journalism is printing what someone else does not want printed; everything else is public relations."
                     </p>
                   </div>
-                </div>
-              </section>
-            )}
-
-            {/* HIGH-EMPHASIS ENTERTAINMENT CAROUSEL/SPOTLIGHT PANEL
-                (As explicitly requested: "Entertainment News (75% focus)", visual spotlight focus) */}
-            {activeCategory === "Home" && !searchQuery && (
-              <section id="entertainment-visual-focus" className="space-y-5 select-none bg-rose-950/5 p-6 rounded-2xl border border-[#B80000]/10">
-                <div className="flex items-center justify-between border-b border-rose-900/20 pb-4">
-                  <div className="flex items-center gap-2">
-                    <span className="flex h-2.5 w-2.5 relative">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#B80000]"></span>
-                    </span>
-                    <h2 className="text-lg md:text-xl font-black font-sans uppercase tracking-tight">Entertainment Spotlight (Lollywood Exclusive)</h2>
-                  </div>
-                  <button 
-                    onClick={() => setActiveCategory("Entertainment")}
-                    className="text-xs uppercase font-extrabold tracking-wider text-[#B80000] hover:underline cursor-pointer flex items-center gap-1"
-                  >
-                    Explore Channel ({articles.filter(a => a.category === NewsCategory.ENTERTAINMENT).length})
-                    <ChevronRight size={14} />
-                  </button>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {articles
-                    .filter((a) => a.category === NewsCategory.ENTERTAINMENT)
-                    .slice(0, 3)
-                    .map((item) => (
-                      <div 
-                        key={item.id}
-                        className={`group cursor-pointer rounded-xl overflow-hidden border flex flex-col justify-between transition-all hover:shadow-lg ${
-                          isDark ? "bg-[#212123] border-slate-800" : "bg-white border-slate-200"
-                        }`}
-                        onClick={() => setSelectedArticle(item)}
-                        id={`entertainment-spotlight-${item.id}`}
-                      >
-                        {/* Image Frame with Overlay Tag */}
-                        <div className="relative aspect-video w-full overflow-hidden bg-slate-800 shrink-0">
-                          <img 
-                            src={item.imageUrl} 
-                            alt={item.title}
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                            referrerPolicy="no-referrer"
-                          />
-                          <span className="absolute bottom-2 left-2 bg-black/75 backdrop-blur-xs text-stone-200 text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-[1px]">
-                            {item.category}
-                          </span>
-                        </div>
-
-                        {/* Text Block */}
-                        <div className="p-4 flex-grow flex flex-col justify-between space-y-3 text-left">
-                          <div className="space-y-1.5">
-                            <h3 className="text-sm font-sans font-black leading-snug group-hover:text-[#B80000] transition-colors line-clamp-2">
-                              {item.title}
-                            </h3>
-                            <p className="text-xs opacity-75 line-clamp-2 leading-relaxed">
-                              {item.summary}
-                            </p>
-                          </div>
-
-                          <div className="flex items-center justify-between pt-2 border-t border-black/5 dark:border-white/5 text-[10px] opacity-60 font-mono">
-                            <span>{new Date(item.publishedAt).toLocaleDateString()}</span>
-                            <span>{item.readTime}</span>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
                 </div>
               </section>
             )}
@@ -805,7 +694,7 @@ export default function App() {
                     {filteredFeed.map((item) => (
                       <article 
                         key={item.id}
-                        onClick={() => setSelectedArticle(item)}
+                        onClick={() => handleSelectArticle(item)}
                         className={`group cursor-pointer rounded-xl border overflow-hidden flex flex-col justify-between transition-all hover:shadow-md ${
                           isDark ? "bg-[#18181A] border-slate-800" : "bg-white border-slate-200"
                         }`}
@@ -819,19 +708,24 @@ export default function App() {
                             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                             referrerPolicy="no-referrer"
                           />
-                          <span className="absolute top-2 left-2 bg-[#B80000] text-white text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-[1px]">
-                            {item.category}
-                          </span>
-                          {item.isBreaking && (
-                            <span className="absolute bottom-2 right-2 bg-red-600/90 text-white text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-[1px]">
-                              Breaking
-                            </span>
-                          )}
                         </div>
 
                         {/* Short Description details */}
                         <div className="p-5 flex-grow flex flex-col justify-between space-y-3 text-left">
                           <div className="space-y-1.5">
+                            <div className="flex items-center gap-1.5 mb-1.5 select-none flex-wrap">
+                              <span className="text-[#B80000] text-[10px] font-black uppercase tracking-wider">
+                                {item.category}
+                              </span>
+                              {item.isBreaking && (
+                                <>
+                                  <span className="text-xs opacity-40 font-bold">&bull;</span>
+                                  <span className="bg-[#B80000]/10 text-[#B80000] text-[8px] font-black uppercase tracking-widest px-1.5 py-0.5 rounded-[1px]">
+                                    Breaking
+                                  </span>
+                                </>
+                              )}
+                            </div>
                             <h3 className="text-sm md:text-base font-sans font-black leading-snug group-hover:text-[#B80000] transition-colors line-clamp-2">
                               {item.title}
                             </h3>
@@ -849,7 +743,7 @@ export default function App() {
                         {/* Read More Button frame */}
                         <div className="px-5 pb-4 shrink-0 text-left select-none">
                           <button
-                            onClick={() => setSelectedArticle(item)}
+                            onClick={() => handleSelectArticle(item)}
                             className="text-[10px] font-bold uppercase tracking-widest text-[#B80000] border-b border-transparent group-hover:border-[#B80000] transition-all"
                           >
                             Read Full Dispatch &rarr;
@@ -882,7 +776,7 @@ export default function App() {
                       trendingArticles.map((trend, index) => (
                         <div 
                           key={trend.id}
-                          onClick={() => setSelectedArticle(trend)}
+                          onClick={() => handleSelectArticle(trend)}
                           className="flex gap-3 group cursor-pointer items-start"
                         >
                           <span className="text-2xl md:text-3xl font-serif font-black text-[#B80000]/25 group-hover:text-[#B80000] transition-colors leading-none w-8 text-center select-none">
@@ -914,7 +808,7 @@ export default function App() {
                     {mostReadArticles.slice(0, 4).map((art, cellIdx) => (
                       <div 
                         key={art.id}
-                        onClick={() => setSelectedArticle(art)}
+                        onClick={() => handleSelectArticle(art)}
                         className="pt-3 first:pt-0 group cursor-pointer"
                       >
                         <h4 className="text-xs font-bold leading-snug group-hover:text-[#B80000] transition-colors line-clamp-2">
@@ -942,7 +836,6 @@ export default function App() {
                         key={cat.name}
                         onClick={() => {
                           setActiveCategory(cat.name);
-                          setIsCmsOpen(false);
                           setSearchQuery("");
                         }}
                         className={`flex items-center justify-between p-2 rounded hover:bg-black/5 dark:hover:bg-white/5 transition-all text-left ${
@@ -958,55 +851,7 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Sidebar Widget 4: Social Media Channels */}
-                <div 
-                  className={`p-5 rounded-xl border text-left leading-relaxed ${
-                    isDark ? "bg-[#18181A] border-slate-800" : "bg-white border-slate-200"
-                  }`}
-                >
-                  <h3 className="text-xs font-black uppercase tracking-wider border-b border-rose-900/10 pb-3 mb-4 select-none">
-                    Join News Verse Channels
-                  </h3>
-                  
-                  <div className="grid grid-cols-2 gap-2 select-none">
-                    <a 
-                      href="https://facebook.com/newsverse" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 p-2 rounded text-xs hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                    >
-                      <Facebook size={14} className="text-[#1877F2]" />
-                      <span>Facebook</span>
-                    </a>
-                    <a 
-                      href="https://twitter.com/newsverse" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 p-2 rounded text-xs hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                    >
-                      <Twitter size={14} className="text-[#1DA1F2]" />
-                      <span>Twitter</span>
-                    </a>
-                    <a 
-                      href="https://instagram.com/newsverse" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 p-2 rounded text-xs hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                    >
-                      <Instagram size={14} className="text-[#E1306C]" />
-                      <span>Instagram</span>
-                    </a>
-                    <a 
-                      href="https://youtube.com/newsverse" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 p-2 rounded text-xs hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                    >
-                      <Youtube size={14} className="text-[#FF0000]" />
-                      <span>YouTube Channel</span>
-                    </a>
-                  </div>
-                </div>
+
 
               </aside>
 
@@ -1014,7 +859,7 @@ export default function App() {
 
             {/* INTEGRATED EXCLUSIVE ON-GROUND READER PHOTOJOURNALISM GALLERY */}
             {activeCategory === "Home" && (
-              <section id="exclusive-reader-photojournalism-feed" className="pt-4">
+              <section id="exclusive-reader-photojournalism-feed" className="pt-6 border-t border-black/5 dark:border-white/5">
                 <ReaderGallery isDark={isDark} />
               </section>
             )}
@@ -1040,7 +885,7 @@ export default function App() {
               Invest In Critical Journalistic Truth
             </h3>
             <p className="text-xs md:text-sm text-slate-300 leading-relaxed max-w-lg mx-auto">
-              Subscribe to the News Verse VIP Editorial Dispatch. We compile raw updates, verified Lollywood scoops, and Islamabad environmental adaptation analyses straight to your inbox.
+              Subscribe to the News Verse VIP Editorial Dispatch.
             </p>
 
             {newsletterSubscribed ? (
@@ -1102,7 +947,6 @@ export default function App() {
                   <button
                     onClick={() => {
                       setActiveCategory(lnk);
-                      setIsCmsOpen(false);
                       setSearchQuery("");
                       window.scrollTo({ top: 0, behavior: "smooth" });
                     }}
@@ -1154,20 +998,35 @@ export default function App() {
                 <MapPin size={14} className="text-[#B80000]" />
                 <span>Sector G-6, Islamabad, PK</span>
               </li>
+              <li className="flex items-start gap-2">
+                <Youtube size={14} className="text-[#B80000] shrink-0 mt-0.5" />
+                <div className="min-w-0">
+                  <a 
+                    href="http://www.youtube.com/@NewsVerseNetworkNetwork" 
+                    target="_blank" 
+                    rel="noreferrer" 
+                    className="text-[#B80000] hover:underline font-mono text-[11px] break-all block"
+                  >
+                    youtube.com/@NewsVerseNetworkNetwork
+                  </a>
+                </div>
+              </li>
               <li className="flex items-center gap-2">
                 <Phone size={14} className="text-[#B80000]" />
                 <span>+92 (051) 921-NEWS</span>
               </li>
               <li className="flex items-center gap-2">
                 <Mail size={14} className="text-[#B80000]" />
-                <span>desk@newsverse.com</span>
+                <span>news.verse.network@gmail.com</span>
               </li>
             </ul>
             <div className="flex gap-3 pt-2 text-[#B80000]">
               <Facebook size={18} className="cursor-pointer hover:opacity-85" />
               <Twitter size={18} className="cursor-pointer hover:opacity-85" />
               <Instagram size={18} className="cursor-pointer hover:opacity-85" />
-              <Youtube size={18} className="cursor-pointer hover:opacity-85" />
+              <a href="http://www.youtube.com/@NewsVerseNetworkNetwork" target="_blank" rel="noreferrer" title="YouTube Channel">
+                <Youtube size={18} className="cursor-pointer hover:opacity-85" />
+              </a>
             </div>
           </div>
 
@@ -1187,6 +1046,17 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* INTRO SPECIALLY BRANDED BROADCAST OVERLAY PORTAL */}
+      {showIntroForArticle && (
+        <IntroVideoPlayer
+          onComplete={() => {
+            setSelectedArticle(showIntroForArticle);
+            setShowIntroForArticle(null);
+          }}
+          isDark={isDark}
+        />
+      )}
 
       {/* THE FLOATING DETAILED ARTICLE MODAL PORTAL */}
       {selectedArticle && (

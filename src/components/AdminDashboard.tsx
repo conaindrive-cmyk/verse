@@ -19,7 +19,7 @@ export default function AdminDashboard({ onAddArticle, onDeleteArticle, articles
   const [title, setTitle] = useState("");
   const [summary, setSummary] = useState("");
   const [content, setContent] = useState("");
-  const [category, setCategory] = useState<NewsCategory>(NewsCategory.ENTERTAINMENT);
+  const [category, setCategory] = useState<NewsCategory>(NewsCategory.PAKISTAN);
   const [author, setAuthor] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [isBreaking, setIsBreaking] = useState(false);
@@ -109,21 +109,21 @@ export default function AdminDashboard({ onAddArticle, onDeleteArticle, articles
       // Use different curated high-resolution pictures for typical keyword mappings
       const keyLow = keyword.toLowerCase();
       if (keyLow.includes("dress") || keyLow.includes("fashion") || keyLow.includes("style")) {
-        articleDraft.imageUrl = "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=800";
+        articleDraft.imageUrl = "https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&q=80&w=800";
       } else if (keyLow.includes("music") || keyLow.includes("song") || keyLow.includes("synth") || keyLow.includes("band")) {
-        articleDraft.imageUrl = "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=800";
+        articleDraft.imageUrl = "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=800";
       } else if (keyLow.includes("movie") || keyLow.includes("film") || keyLow.includes("actor") || keyLow.includes("lollywood") || keyLow.includes("cinema")) {
-        articleDraft.imageUrl = "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&q=80&w=800";
+        articleDraft.imageUrl = "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&q=80&w=800";
       } else if (keyLow.includes("green") || keyLow.includes("tree") || keyLow.includes("heat") || keyLow.includes("climate") || keyLow.includes("islamabad")) {
         articleDraft.imageUrl = "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&q=80&w=800";
       } else if (keyLow.includes("cricket") || keyLow.includes("match") || keyLow.includes("sports")) {
-        articleDraft.imageUrl = "https://images.unsplash.com/photo-1531415080294-4404b53e511a?auto=format&fit=crop&q=80&w=800";
+        articleDraft.imageUrl = "https://images.unsplash.com/photo-1593341646782-e0b495cff86d?auto=format&fit=crop&q=80&w=800";
       } else if (keyLow.includes("cyber") || keyLow.includes("tech") || keyLow.includes("quantum") || keyLow.includes("chip") || keyLow.includes("superconductor")) {
-        articleDraft.imageUrl = "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=800";
+        articleDraft.imageUrl = "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800";
       } else if (keyLow.includes("space") || keyLow.includes("star") || keyLow.includes("satellite") || keyLow.includes("debris")) {
         articleDraft.imageUrl = "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800";
-      } else if (keyLow.includes("business") || keyLow.includes("trade") || keyLow.includes("container") || keyLow.includes("ship")) {
-        articleDraft.imageUrl = "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=800";
+      } else if (keyLow.includes("business") || keyLow.includes("trade") || keyLow.includes("container") || keyLow.includes("ship") || keyLow.includes("harbor")) {
+        articleDraft.imageUrl = "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&q=80&w=800";
       }
 
       setDraftedArticle(articleDraft);
@@ -248,7 +248,7 @@ export default function AdminDashboard({ onAddArticle, onDeleteArticle, articles
                     }`}
                   >
                     <option value="BBC Factual (Highly objective, clinical, detailed, serious)">BBC Editorial Style</option>
-                    <option value="Visual Column (High emphasis on red carpet details, Lollywood fashion, colorful adjectives)">Visual Entertainment Column</option>
+                    <option value="Analytical Pulse (In-depth analysis, scientific data references, detailed metrics, clear graphs)">Analytical Science Column</option>
                     <option value="Urgent Breaking (Shorter paragraphs, bold headers, sensational live updates vibe)">Urgent Breaking Alert</option>
                   </select>
                 </div>

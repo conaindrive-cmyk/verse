@@ -35,20 +35,18 @@ if (apiKey) {
   });
 }
 
-// REST API Endpoints
-app.get("/images/capture.png", (req, res) => {
-  const folder = process.env.NODE_ENV === "production" ? "dist" : "public";
-  res.sendFile(path.join(process.cwd(), folder, "images", "capture.png"));
-});
+// REST API Endpoints & Static Asset Router
+app.use("/images", express.static(path.join(process.cwd(), "public", "images")));
+app.use("/images", express.static(path.join(process.cwd(), "dist", "images")));
 
-app.get("/images/gallery-1.jpeg", (req, res) => {
-  const folder = process.env.NODE_ENV === "production" ? "dist" : "public";
-  res.sendFile(path.join(process.cwd(), folder, "images", "gallery-1.jpeg"));
-});
-
-app.get("/images/gallery-2.jpeg", (req, res) => {
-  const folder = process.env.NODE_ENV === "production" ? "dist" : "public";
-  res.sendFile(path.join(process.cwd(), folder, "images", "gallery-2.jpeg"));
+// Specific legacy fallbacks
+app.get("/images/logo.png", (req, res) => {
+  const p = path.join(process.cwd(), "public", "images", "logo-png.png");
+  res.sendFile(p, (err) => {
+    if (err) {
+      res.sendFile(path.join(process.cwd(), "public", "images", "logo.jpeg"));
+    }
+  });
 });
 
 app.get("/api/news", (req, res) => {

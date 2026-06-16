@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from "react";
-import { NewsArticle, Comment } from "../types";
+import { NewsArticle, Comment, cleanImageUrl } from "../types";
 import { MessageSquare, Share2, Printer, ThumbsUp, Bookmark, Send, X, User } from "lucide-react";
 
 interface ArticleModalProps {
@@ -213,7 +213,7 @@ export default function ArticleModal({ article, onClose, isDark = false }: Artic
           {/* Large Hero Graphic */}
           <div className="relative aspect-video sm:h-[400px] rounded-lg overflow-hidden shadow-md select-none bg-slate-800">
             <img 
-              src={article.imageUrl} 
+              src={cleanImageUrl(article.imageUrl)} 
               alt={article.title}
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"

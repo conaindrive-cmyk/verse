@@ -49,3 +49,30 @@ export interface VideoReport {
   views: string;
   publishedAt: string;
 }
+
+export function cleanImageUrl(url: string | undefined): string {
+  if (!url) return "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=800";
+  const cleaned = url.trim();
+  
+  if (cleaned.includes("cricket_biometrics_sensor_match_1781548024893.jpg")) {
+    return "/images/cricket_biometrics_sensor_match_1781548024893.jpg";
+  }
+  if (cleaned.includes("pak_us_iran_peace_1781546826718.jpg")) {
+    return "/images/pak_us_iran_peace_1781546826718.jpg";
+  }
+  
+  if (cleaned.startsWith("/src/assets/images/")) {
+    return cleaned.replace("/src/assets/images/", "/images/");
+  }
+  if (cleaned.startsWith("src/assets/images/")) {
+    return "/" + cleaned.replace("src/assets/images/", "images/");
+  }
+  if (cleaned.startsWith("/assets/images/")) {
+    return cleaned.replace("/assets/images/", "/images/");
+  }
+  if (cleaned.startsWith("assets/images/")) {
+    return "/" + cleaned.replace("assets/images/", "images/");
+  }
+  return cleaned;
+}
+

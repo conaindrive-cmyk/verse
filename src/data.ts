@@ -27,7 +27,7 @@ Decades of maintaining strategic relations with both the Western superpower and 
 World leaders, including the Secretary-General of the United Nations, have expressed deep relief and praise. "This is an outstanding triumph of quiet, persistent diplomacy over armed posturing," commented an ambassador in Geneva.
 
 News Verse will continue to stream live dispatches as official press conferences begin in Washington D.C. and Tehran later this afternoon.`,
-    imageUrl: "/src/assets/images/pak_us_iran_peace_1781546826718.jpg",
+    imageUrl: "/images/pak_us_iran_peace_1781546826718.jpg",
     publishedAt: "2026-06-15T09:45:00Z",
     readTime: "6 min read",
     isBreaking: true,
@@ -195,7 +195,7 @@ News Verse analyzes the economic shifts and industrial real-estate booms happeni
     content: `From training nets in Rawalpindi to international venues in Melbourne, cricket coaching has entered the telemetry age. Elite fast bowlers now wear specialized biometric harnesses containing high-G accelerators that measure skeletal twists and release-velocities in real-time.
 
 Physiotherapists claim these micro-sensors are preventing joint injuries by flagging fatigue spikes before they manifest as critical tears. News Verse explores this athletic tech horizon.`,
-    imageUrl: "/src/assets/images/cricket_biometrics_sensor_match_1781548024893.jpg",
+    imageUrl: "/images/cricket_biometrics_sensor_match_1781548024893.jpg",
     publishedAt: "2026-06-11T19:30:00Z",
     readTime: "4 min read",
     viewCount: 4210,

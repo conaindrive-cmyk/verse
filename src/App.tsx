@@ -4,13 +4,12 @@
  */
 
 import React, { useState, useEffect } from "react";
-import { NewsArticle, NewsCategory, VideoReport } from "./types";
+import { NewsArticle, NewsCategory, VideoReport, cleanImageUrl } from "./types";
 import { INITIAL_ARTICLES, BREAKING_TICKER_STORIES } from "./data";
 import Logo from "./components/Logo";
 import BreakingTicker from "./components/BreakingTicker";
 import ArticleModal from "./components/ArticleModal";
 import ReaderGallery from "./components/ReaderGallery";
-import IntroVideoPlayer from "./components/IntroVideoPlayer";
 
 import { 
   Sun, 
@@ -51,14 +50,9 @@ export default function App() {
 
   // Focus Modes
   const [selectedArticle, setSelectedArticle] = useState<NewsArticle | null>(null);
-  const [showIntroForArticle, setShowIntroForArticle] = useState<NewsArticle | null>(null);
 
   const handleSelectArticle = (article: NewsArticle) => {
-    if (article.id === "breaking-us-iran") {
-      setShowIntroForArticle(article);
-    } else {
-      setSelectedArticle(article);
-    }
+    setSelectedArticle(article);
   };
 
   // Newsletter State
@@ -565,7 +559,7 @@ export default function App() {
                 >
                   <div className="relative aspect-video w-full overflow-hidden bg-slate-800">
                     <img 
-                      src={heroArticle.imageUrl} 
+                      src={cleanImageUrl(heroArticle.imageUrl)} 
                       alt={heroArticle.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                       referrerPolicy="no-referrer"
@@ -703,7 +697,7 @@ export default function App() {
                         {/* News Card Header Image */}
                         <div className="relative aspect-video w-full overflow-hidden bg-slate-800 select-none">
                           <img 
-                            src={item.imageUrl} 
+                            src={cleanImageUrl(item.imageUrl)} 
                             alt={item.title}
                             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                             referrerPolicy="no-referrer"
@@ -1047,16 +1041,7 @@ export default function App() {
         </div>
       </footer>
 
-      {/* INTRO SPECIALLY BRANDED BROADCAST OVERLAY PORTAL */}
-      {showIntroForArticle && (
-        <IntroVideoPlayer
-          onComplete={() => {
-            setSelectedArticle(showIntroForArticle);
-            setShowIntroForArticle(null);
-          }}
-          isDark={isDark}
-        />
-      )}
+
 
       {/* THE FLOATING DETAILED ARTICLE MODAL PORTAL */}
       {selectedArticle && (
